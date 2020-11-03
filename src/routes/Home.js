@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 const Home = ({userObj}) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
     useEffect(() => {
         dbService.collection("nweets").onSnapshot(snapshot => {
             const nweetArray = snapshot.docs.map(doc => ({id:doc.id, ...doc.data(),
@@ -17,7 +17,7 @@ const Home = ({userObj}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         let attachmentUrl = "";
-        if(attachment != ""){
+        if(attachment !== ""){
           const attachmentRef = storageService
           .ref()
           .child(`${userObj.uid}/${uuidv4()}`);
